@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basketball Players</title>
+</head>
+<body>
+    <h1>Basketball Players</h1>
+    
+    <!-- Form for adding a new player -->
+    <form action="/players" method="post">
+        <input type="text" name="name" placeholder="Player Name" required>
+        <input type="text" name="position" placeholder="Position" required>
+        <input type="text" name="team" placeholder="Team" required>
+        <button type="submit">Add Player</button>
+    </form>
+    
+    <h2>Player List</h2>
+    <ul id="players">
+        {% for player in players %}
+        <li>
+            {{ player.name }} - {{ player.position }} - {{ player.team }}
+            <!-- Form for updating an existing player -->
+            <form action="/players/{{ loop.index0 }}" method="post" style="display: inline;">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="text" name="name" placeholder="New Name">
+                <input type="text" name="position" placeholder="New Position">
+                <input type="text" name="team" placeholder="New Team">
+                <button type="submit">Update</button>
+            </form>
+            <!-- Button for deleting a player -->
+            <form action="/players/{{ loop.index0 }}" method="post" style="display: inline;">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        // Override form method to allow PUT and DELETE operations
+        document.addEventListener('DOMContentLoaded', function () {
+            var forms = document.querySelectorAll('form');
+            forms.forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.querySelector('[name="_method"]')) {
+                        event.preventDefault();
+                        var method = form.querySelector('[name="_method"]').value;
+                        fetch(form.action, {
+                            method: method,
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: new URLSearchParams(new FormData(form))
+                        }).then(function(response) {
+                            window.location.reload();
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
