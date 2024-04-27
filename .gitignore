@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+
+# Environment variables file (if used)
+.env
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+
+# Dependency directories
+node_modules/
+
+# Docker related files
+.docker/
