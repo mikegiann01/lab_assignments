@@ -10,6 +10,6 @@ My App writen in flask allows users to perform Crud operations on in-house memor
 # Usage
 In the directory, to run app.py when the container launches:
 >flask run
-#Public Key
+# Public Key
 This is my public key fingerprint: 77610895E7DED97B5C2FD9F4EDE3E9D852ABE34F
 
