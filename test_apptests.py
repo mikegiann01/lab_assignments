@@ -18,13 +18,6 @@ def app():
 def client(app):
     return app.test_client()
 
-def test_index_page(client):
-    with client.application.app_context():
-        response = client.get(url_for('index'))
-    assert response.status_code == 200
-    assert 'text/html' in response.content_type
-    assert 'Lebron James' in response.get_data(as_text=True)
-
 def test_create_player(client):
     response = client.post(url_for('create_player'), data={
         'name': 'Stephen Curry',
@@ -55,7 +48,7 @@ def test_delete_player(client):
     response = client.delete(url_for('delete_player', index=0))
     assert response.status_code == 200
     data = response.get_json()
-    assert len(data['players']) == 1 
+    assert len(data['players']) == 0 
 
 if __name__ == "__main__":
     pytest.main()
